@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//Binary Search
 int binarySearch(int arr[], int n,int element){
     int lo=0;
     int hi=n-1;
