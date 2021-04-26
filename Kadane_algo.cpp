@@ -9,6 +9,12 @@ using namespace std;
     ans- maxsum=10 (and the subarray is {2, -1, 2, 3, 4})
 */
 
+/*
+    we check that at each ith element the sum is greater than ith element or not,
+    if yes then subarray is continued else a new subarray is started from that element
+    and at each iteration we check if the sum is greater than maxsum or not.
+*/
+
 int maxSum(vector<int> arr){
     int n=arr.size();
     int maxsum=arr[0];
