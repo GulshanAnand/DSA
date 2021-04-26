@@ -10,6 +10,7 @@ using namespace std;
 */
 
 /*
+    # Kadane's Algorithm:
     we check that at each ith element the sum is greater than ith element or not,
     if yes then subarray is continued else a new subarray is started from that element
     and at each iteration we check if the sum is greater than maxsum or not.
