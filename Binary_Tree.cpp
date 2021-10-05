@@ -60,7 +60,8 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>arr[i];
     }
-    TreeNode *root = createBTree(arr,0,root,n);
+    TreeNode* root = NULL;
+    root = createBTree(arr,0,root,n);
     cout<<endl;
     preorder(root);
     cout<<endl;
