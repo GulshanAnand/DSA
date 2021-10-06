@@ -9,6 +9,7 @@ struct TreeNode{
 };
 typedef struct TreeNode TreeNode;
 
+//this function returns a TreeNode with data as val
 TreeNode* newTreeNode(int val){
     TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
     newNode->data = val;
