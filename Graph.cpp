@@ -89,6 +89,36 @@ void addEdge(int a, int b){
     n++;
 }
 
+void delEdge(int a, int b){
+    graph_node* temp = graph[a];
+    if(temp->vertex == b){
+        graph[a] = temp->link;
+        free(temp);
+    }
+    else{
+        while(temp->link->vertex != b){
+            temp = temp->link;
+        }
+        graph_node *del = temp->link;
+        temp->link = del->link;
+        free(del);
+    }
+
+    temp = graph[b];
+    if(temp->vertex == a){
+        graph[b] = temp->link;
+        free(temp);
+    }
+    else{
+        while(temp->link->vertex != a){
+            temp = temp->link;
+        }
+        graph_node *del = temp->link;
+        temp->link = del->link;
+        free(del);
+    }
+}
+
 void dfs(int v){
     graph_node *w;
     visited[v]= 1;
