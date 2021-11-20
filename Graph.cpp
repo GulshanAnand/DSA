@@ -14,7 +14,7 @@ int n=0;
 short int visited[MAX_VERTICES];
 
 //Queue start
-int arr[20];
+int arr[100];
 int front = -1;
 int rear = -1;
 
@@ -201,6 +201,7 @@ int main(){
     }
     refresh();
     cout<<endl;
+    //check for cycle:
     for(int i=0;i<MAX_VERTICES;i++){
         if(graph[i] != NULL){
             if(visited[i]) continue;
