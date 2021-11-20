@@ -57,6 +57,38 @@ bool isempty(){
 }
 //Queue end
 
+//Stack start
+int st[MAX_VERTICES];
+int tp = 0;
+
+void push(int a){
+    st[tp] = a;
+    tp++;
+}
+
+int pop(){
+    tp--;
+    return st[tp];
+}
+//Stack end
+
+void addDirEdge(int a, int b){
+    graph_node* temp = (graph_node*)malloc(sizeof(graph_node));
+    temp->vertex = b;
+    temp->link = NULL;
+    graph_node* p = graph[a];
+    if(p != NULL){
+        while(p->link != NULL){
+            p = p->link;
+        }
+        p->link = temp;
+    }
+    else{
+        graph[a] = temp;
+    }
+    n++;
+}
+
 void addEdge(int a, int b){
     graph_node* temp = (graph_node*)malloc(sizeof(graph_node));
     temp->vertex = b;
@@ -162,6 +194,31 @@ void refresh(){
     for(int i=0;i<MAX_VERTICES;i++){
         visited[i] = 0;
     }
+    tp = 0;
+}
+
+void dfs_top(int v){
+    graph_node *w;
+    visited[v]= 1;
+    for(w=graph[v]; w; w=w->link){
+        if (!visited[w->vertex])
+        dfs_top(w->vertex);
+    }
+    push(v);  
+}
+
+void topsort(){
+    for(int i=0;i<MAX_VERTICES;i++){
+        if(graph[i] != NULL){
+            if(visited[i]) continue;
+            dfs_top(i);
+        }
+    }
+    cout<<"Topological sorting is: ";
+    while(tp != 0){
+        cout<<pop()<<" ";
+    }
+    cout<<endl;
 }
 
 int main(){
@@ -174,14 +231,24 @@ int main(){
     // addEdge(5, 5);
     // addEdge(0, 4);
 
-    addEdge(0, 1);
-    addEdge(0, 7);
-    addEdge(0, 8);
-    addEdge(1, 5);
-    addEdge(8, 5);
-    addEdge(7, 5);
-    addEdge(8, 9);
-    addEdge(8, 4);
+    // addEdge(0, 1);
+    // addEdge(0, 7);
+    // addEdge(0, 8);
+    // addEdge(1, 5);
+    // addEdge(8, 5);
+    // addEdge(7, 5);
+    // addEdge(8, 9);
+    // addEdge(8, 4);
+
+    addDirEdge(1,2);
+    addDirEdge(1,3);
+    addDirEdge(2,3);
+    addDirEdge(2,4);
+    addDirEdge(2,5);
+    addDirEdge(3,5);
+    addDirEdge(4,5);
+    addDirEdge(4,6);
+    addDirEdge(5,6);
 
     //dfs call:
     for(int i=0;i<MAX_VERTICES;i++){
@@ -206,10 +273,14 @@ int main(){
         if(graph[i] != NULL){
             if(visited[i]) continue;
             if(hasCycle(i, -1)){
-                cout<<"Graph is cyclic\n";
+                cout<<"Graph is cyclic.";
                 break;
             }
         }
     }
+    refresh();
+    cout<<endl;
+    //topsort:
+    topsort();
     return 0;
 }
