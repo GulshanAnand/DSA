@@ -8,7 +8,7 @@ void merge(int l, int mid, int r){
     int i = l;
     int j = mid + 1;
     int k = 0;
-    vector<int> b(l+r);
+    vector<int> b(r+1);
     while(i <= mid && j <= r){
         if(a[i] < a[j]){
             b[k] = a[i];
@@ -49,12 +49,14 @@ int main(){
     int n;
     cout<<"Enter size of array:"<<endl;
     cin>>n;
-    a.resize(n);
     cout<<"Enter elements of array:"<<endl;
     for(int i = 0; i < n; i++){
-        cin>>a[i];
+        int k;
+        cin>>k;
+        a.push_back(k);
     }
     mergeSort(0, n-1);
+    cout<<"Sorted array is :\n";
     for(int i = 0; i < n; i++){
         cout<<a[i]<<" ";
     }
