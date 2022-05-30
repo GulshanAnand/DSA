@@ -8,7 +8,7 @@ void merge(int l, int mid, int r){
     int i = l;
     int j = mid + 1;
     int k = 0;
-    vector<int> b(r+1);
+    vector<int> b(r-l+1);
     while(i <= mid && j <= r){
         if(a[i] < a[j]){
             b[k] = a[i];
@@ -37,7 +37,7 @@ void merge(int l, int mid, int r){
 }
 
 void mergeSort(int l, int r){
-    if(l<r){
+    if(l < r){
         int mid = l + (r-l)/2;
         mergeSort(l, mid);
         mergeSort(mid+1, r);

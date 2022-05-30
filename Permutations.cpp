@@ -5,7 +5,6 @@ void permute(vector<int> a, int idx, vector<vector<int>> &ans){
     if(idx >= a.size()){
         ans.push_back(a);
     }
-
     for(int j=idx;j<a.size();j++){
         swap(a[idx], a[j]);
         permute(a, idx+1, ans);
