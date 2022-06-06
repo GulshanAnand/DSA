@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -52,6 +52,30 @@ void postorder(TreeNode* root){
     }
 }
 
+void levelorder(TreeNode* root){
+    if(root == NULL) return;
+    queue<TreeNode*> q;
+    q.push(root);
+    q.push(NULL);
+    cout<<(root->data)<<" ";
+    while(!q.empty()){
+        TreeNode *p = q.front();
+        q.pop();
+        if(p == NULL && !q.empty()) q.push(NULL);
+        else if(p == NULL && q.empty()) break;
+        else{
+            if(p->left != NULL){
+                q.push(p->left);
+                cout<<(p->left->data)<<" ";
+            }
+            if(p->right != NULL){
+                q.push(p->right);
+                cout<<(p->right->data)<<" ";
+            }
+        }
+    }
+}
+
 TreeNode* LCA(TreeNode* root, TreeNode* p, TreeNode* q){
     if(root == NULL || root == p || root == q){
         return root;
@@ -80,5 +104,7 @@ int main(){
     inorder(root);
     cout<<endl;
     postorder(root);
+    cout<<endl;
+    levelorder(root);
     return 0;
 }
