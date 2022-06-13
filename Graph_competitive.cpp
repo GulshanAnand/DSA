@@ -59,3 +59,41 @@ int main(){
     cout<<bipartite;
     return 0;
 }
+
+/* Code to check if a graph is bipartite or not:
+Problem link:
+https://www.codechef.com/problems/BPTGH
+
+vector<int> adj[10000];
+int vis[10000]={0};
+
+bool dfs(int node, int curr){
+    vis[node] = curr;
+    for(int i=0;i<adj[node].size();i++){
+        if(vis[adj[node][i]] == curr) return false;
+        if(vis[adj[node][i]] == 0)
+            dfs(adj[node][i], 3-curr);
+    }
+    return true;
+}
+
+int main(){
+    FIO;
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        int a,b;
+        cin>>a>>b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    bool ans = true;
+    for(int i=1;i<=n;i++){
+        if(vis[i] == 0)
+            ans = ans&dfs(i,1);
+    }
+    if(ans) cout<<"YES\n";
+    else cout<<"NO\n";
+    return 0;
+}
+*/
