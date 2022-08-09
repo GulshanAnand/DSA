@@ -14,7 +14,7 @@ int main(){
     for(int i=1;i<n;i++){
         int ce=arr[i];          // ce = current element
         int j=i-1;
-        while(ce<arr[j] && j>=0){
+        while(j>=0 && ce<arr[j]){
             arr[j+1]=arr[j];
             j--;
         }
