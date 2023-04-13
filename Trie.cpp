@@ -20,39 +20,35 @@ class Node{
 class Trie{
 public:
     Node *root;
-    Trie() {
+    Trie(){
         root = new Node();
     }
     
-    void insert(string word) {
+    void insert(string word){
         Node* currNode = root;
-        for (int i = 0; i < word.size(); i++)
-        {
+        for(int i = 0; i < word.size(); i++){
             int idx = word[i] - 'a';
-            if (currNode->child[idx] == NULL) 
-                currNode->child[idx] = new Node();
+            if (currNode->child[idx] == NULL) currNode->child[idx] = new Node();
             currNode = currNode->child[idx];
         }
         currNode->isEnd = true;
     }
     
-    bool search(string word) {
+    bool search(string word){
         Node* currNode = root;
-        for (int i = 0; i < word.size(); i++)
-        {
+        for(int i = 0; i < word.size(); i++){
             int idx = word[i] - 'a';
-            if (currNode->child[idx] == NULL) return false;
+            if(currNode->child[idx] == NULL) return false;
             currNode = currNode->child[idx];
         }
         return currNode->isEnd;
     }
     
-    bool startsWith(string prefix) {
+    bool startsWith(string prefix){
         Node* currNode = root;
-        for (int i = 0; i < prefix.size(); i++)
-        {
+        for(int i = 0; i < prefix.size(); i++){
             int idx = prefix[i] - 'a';
-            if (currNode->child[idx] == NULL) return false;
+            if(currNode->child[idx] == NULL) return false;
             currNode = currNode->child[idx];
         }
         return true;
