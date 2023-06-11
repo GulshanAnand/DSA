@@ -70,95 +70,13 @@ int32_t main(){
         if(t == 1){
             int i,val;
             cin>>i>>val;
-            modify(i, val);
+            modify(i, val); // sets element at index i (0-based) equal to val
         }
         else{
             int x,y;
             cin>>x>>y;
-            cout<<query(x, y-1)<<endl;
+            cout<<query(x, y)<<endl; // gives minimum of range [x, y] inclusive with 0-based indexing
         }
     }
     return 0;
 }
-
-/*
-#include <bits/stdc++.h>
-using namespace std;
-
-#define FIO ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(0);
-typedef long long ll;
-#define int long long int
-
-int n;
-vector<int> a;
-vector<int> seg;
-
-void build(int idx = 0, int l = 0, int r = n-1){
-    if(l == r){
-        seg[idx] = a[l];
-        return;
-    }
-
-    int mid = (l + r)/2;
-    build(2*idx + 1, l, mid);
-    build(2*idx + 2, mid + 1, r);
-    seg[idx] = min(seg[2*idx + 1], seg[2*idx + 2]);
-}
-
-int query(int x, int y, int idx = 0, int l = 0, int r = n-1){
-    if(l >= x && r <= y){
-        return seg[idx];
-    }
-    else if(l > y || r < x){
-        return INT_MAX;
-    }
-    else{
-        int mid = (l + r)/2;
-        return min(query(x, y, 2*idx + 1, l, mid), query(x, y, 2*idx + 2, mid+1, r));
-    }
-}
-
-void update(int k, int val, int idx = 0, int l = 0, int r = n-1){
-    if(l == r){
-        a[k] = val;
-        seg[idx] = val;
-        return;
-    }
-    int mid = (l + r)/2;
-    if(k <= mid){
-        update(k, val, 2*idx + 1, l, mid);
-    }
-    else{
-        update(k, val, 2*idx + 2, mid + 1, r);
-    }
-    seg[idx] = min(seg[2*idx + 1], seg[2*idx + 2]);
-}
-
-int32_t main(){
-    FIO;
-    int q;
-    cin>>n>>q;
-    a.resize(n);
-    seg.resize(4*n);
-    for(int i=0;i<n;i++){
-        cin>>a[i];
-    }
-
-    build();
-    while(q--){
-        int t;
-        cin>>t;
-        if(t == 1){
-            int k,u;
-            cin>>k>>u;
-            update(k-1, u);
-        }
-        else{
-            int x,y;
-            cin>>x>>y;
-            cout<<(query(x-1, y-1))<<endl;
-        }
-    }
-    return 0;
-}
-*/

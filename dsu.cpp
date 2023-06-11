@@ -2,31 +2,33 @@
 using namespace std;
 #define N 100010
 
-int parent[N];
-int size[N];
+vector<int> par;
+vector<int> sz;
 
 void make(int v){
-    parent[v] = v;
-    size[v] = 1;
+    par[v] = v;
+    sz[v] = 1;
 }
 
 int find(int v){
-    if(v == parent[v]) return v;
+    if(v == par[v]) return v;
     //Path compression
-    return parent[v] = find(parent[v]);
+    return par[v] = find(par[v]);
 }
 
 void Union(int a, int b){
     a = find(a);
     b = find(b);
     if(a != b){
-        if(size[a] < size[b]) swap(a,b);
-        parent[b] = a;
-        size[a] += size[b];
+        if(sz[a] < sz[b]) swap(a,b);
+        par[b] = a;
+        sz[a] += sz[b];
     }
 }
 
 int main(){
+    par.resize(N);
+    sz.resize(N);
     int n,k;
     cin>>n>>k;
     for(int i=1;i<=n;i++){
