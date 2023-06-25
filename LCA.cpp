@@ -1,41 +1,70 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// https://cses.fi/problemset/task/1688
+
 #define FIO ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(0);
 #define int long long int
-// https://cses.fi/problemset/task/1687
+int m;
+
+void dfs(int node, int par, vector<int> adj[], vector<int> &lvl, vector<vector<int>> &dp){
+    lvl[node] = lvl[par] + 1;
+
+    dp[node][0] = par;
+    for(int i=1;i<m;i++){
+        dp[node][i] = dp[dp[node][i-1]][i-1];
+    }
+
+    for(auto ch:adj[node]){
+        if(ch != par){
+            dfs(ch, node, adj, lvl, dp);
+        }
+    }
+}
+
+int lca(int a, int b, vector<int> &lvl, vector<vector<int>> &dp){
+    if(lvl[a] < lvl[b]) swap(a, b);
+    int diff = lvl[a] - lvl[b];
+
+    for(int i=0;i<m;i++){
+        if((diff>>i)&1){
+            a = dp[a][i];
+        }
+    }
+
+    if(a == b) return a;
+    for(int i=m-1;i>=0;i--){
+        if(dp[a][i] != dp[b][i]){
+            a = dp[a][i];
+            b = dp[b][i];
+        }
+    }
+    return dp[a][0];
+}
+
 int32_t main(){
     FIO;
     int n,q;
     cin>>n>>q;
-
-    int m = log2(n);
-    vector<vector<int>> par(n+1, vector<int>(m+1, -1));
-
+    vector<int> adj[n+1];
     for(int i=2;i<=n;i++){
-        cin>>par[i][0];
+        int v;
+        cin>>v;
+        adj[i].push_back(v);
+        adj[v].push_back(i);
     }
 
-    for(int i=1;i<=m;i++){
-        for(int node=1;node<=n;node++){
-            int v = par[node][i-1];
-            if(v != -1){
-                par[node][i] = par[v][i-1];
-            }
-        }
-    }
+    m = log2(n);
+    
+    vector<vector<int>> dp(n+1, vector<int>(m, 0));
+    vector<int> lvl(n+1, 0);
+
+    dfs(1, 0, adj, lvl, dp);    
 
     while(q--){
-        int x,k;
-        cin>>x>>k;
-        int boss = x;
-		for(int i=0;i<=20;i++){
-            if(k&(1<<i)){
-                boss = par[boss][i];
-            }
-            if(boss == -1) break;
-        }		
-        cout<<boss<<"\n";
+        int a, b;
+        cin>>a>>b;
+        cout<<lca(a, b, lvl, dp)<<'\n';
     }
 
     return 0;
