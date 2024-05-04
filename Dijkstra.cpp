@@ -2,7 +2,7 @@
 using namespace std;
 #define inf 1000000
 
-void dijkstra(int s, vector<pair<int,int>> adj[], vector<int> &dist, vector<int> &mark, int n){
+void dijkstra(int s, vector<pair<int,int>> adj[], vector<int> &dist, int n){
 	dist[s] = 0;
     set<pair<int,int>> st;
     st.insert({0, s});
@@ -11,8 +11,7 @@ void dijkstra(int s, vector<pair<int,int>> adj[], vector<int> &dist, vector<int>
         st.erase(st.begin());
         int u = p.second;
         int w = p.first;
-        if(mark[u]) continue;
-        mark[u] = 1;
+        if(w != dist[u]) continue;
         for(auto ed:adj[u]){
             int v = ed.first;
             int wt = ed.second;
@@ -43,13 +42,11 @@ int main(){
 	for(int i=0;i<n;i++){
 		dist[i] = inf;
 	}
-    vector<int> mark(n, 0);
-	dijkstra(0, adj, dist, mark, n);
+	dijkstra(0, adj, dist, n);
 	cout<<"vertices with corresponding shortest path lengths are:\n";
 	for(int i=0;i<n;i++){
 		cout<<i<<" "<<dist[i]<<"\n";
 	}
-
 	return 0;
 }
 /*
