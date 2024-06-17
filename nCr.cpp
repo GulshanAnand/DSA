@@ -35,15 +35,13 @@ int ncr(int n, int r){
 void compute_fact(){
     f.resize(N);
     fi.resize(N);
-
     f[0] = 1;
     f[1] = 1;
+    fi[0] = 1;
+    fi[1] = 1;
     for(int i=2;i<N;i++){
         f[i] = (f[i-1]*i)%m;
-    }
-    fi[0] = fi[1] = binpow(1, m-2);
-    for(int i=2;i<N;i++){
-        fi[i] = binpow(f[i], m-2)%m;
+        fi[i] = (fi[i-1]*binpow(i, m-2))%m;
     }
 }
 
