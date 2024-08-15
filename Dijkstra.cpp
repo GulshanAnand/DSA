@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define inf 1000000
+#define inf 2000000
 
 void dijkstra(int s, vector<pair<int,int>> adj[], vector<int> &dist, int n){
 	dist[s] = 0;
